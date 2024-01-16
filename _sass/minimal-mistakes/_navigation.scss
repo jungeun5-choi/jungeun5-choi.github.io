@@ -439,17 +439,10 @@
 
 .nav__list .nav__items {
   margin: 0;
-  font-size: 1.25rem;
+  font-size: 1.15em;
 
   a {
     color: inherit;
-  }
-
-  .active {
-    margin-left: -0.5em;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-    font-weight: bold;
   }
 
   @include breakpoint(max-width $large - 1px) {
@@ -484,8 +477,8 @@
   margin: 0;
   padding: 0.5rem 0.75rem;
   font-family: $sans-serif-narrow;
-  font-size: $type-size-5;
-  font-weight: bold;
+  font-size: $type-size-6;
+  //font-weight: bold;
 }
 
 .nav__sub-title {
@@ -493,7 +486,7 @@
   margin: 0.5rem 0;
   padding: 0.25rem 0;
   font-family: $sans-serif-narrow;
-  font-size: $type-size-6;
+  font-size: $type-size-7;
   font-weight: bold;
   text-transform: uppercase;
   border-bottom: 1px solid $border-color;

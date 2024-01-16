@@ -3,13 +3,12 @@ layout: single
 title: "Java equals() Overriding, hashCode()"
 categories: [Java]
 tag: [java, object, api, overriding]
-toc: true
-author_profile: false
+author_profile: true
 ---
 
 ## `equals()` 메소드를 Overriding할 때
 
-> 참고: 자바의 신 VOL.1 기초 문법편, 12장.
+> **참고:** 자바의 신 VOL.1 기초 문법편, 12장.
 
 
 `equals()` 메소드를 Overriding할 때는 반드시 다음 다섯 가지의 조건을 만족시켜야 한다.
@@ -58,11 +57,7 @@ public class MemberDto {
         return true;
     }
 }
-
 ```
-   
-
-<br>
 
 ### `hashCode()`도 함께 Overriding해야 한다.
 `equals()` 메소드를 Overriding 할 때는 `hashCode()` 메소드도 같이 Overriding해야만 한다. 왜냐하면, `equals()` 메소드를 Overriding해서 객체가 서로 같다고 이야기할 수는 있겠지만, 그 두 객체의 주소 값이 같다고는 볼 수 없기 때문이다.

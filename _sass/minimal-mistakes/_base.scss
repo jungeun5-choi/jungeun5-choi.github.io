@@ -107,14 +107,17 @@ abbr[data-original-title] {
 /* blockquotes */
 
 blockquote {
-  margin: 2em 1em 2em 0;
+  margin: 1.3em 1em 1.3em 1em;
   padding-left: 1em;
   padding-right: 1em;
-  font-style: italic;
+  // font-style: italic;
   border-left: 0.25em solid $primary-color;
 
+  font-size: $type-size-5-2;
+  color: $light-gray;
+
   cite {
-    font-style: italic;
+    // font-style: italic;
 
     &:before {
       content: "\2014";
