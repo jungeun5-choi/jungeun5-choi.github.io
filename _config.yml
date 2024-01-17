@@ -290,7 +290,8 @@ defaults:
       comments: true
       share: true
       related: true
-      show_date: true      
+      show_date: true
+      author_profile: true      
       toc_sticky: true
       toc_label: "목차"
       toc_icon: "fas fa-seedling"

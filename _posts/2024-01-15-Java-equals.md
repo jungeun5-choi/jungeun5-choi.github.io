@@ -3,7 +3,6 @@ layout: single
 title: "Java equals() Overriding, hashCode()"
 categories: [Java]
 tag: [java, object, api, overriding]
-author_profile: true
 ---
 
 ## `equals()` 메소드를 Overriding할 때
