@@ -1,5 +1,10 @@
 source "https://rubygems.org"
-gemspec
 gem "webrick", "~> 1.8"
+gem "jekyll"
+gem "jekyll-include-cache"
+gem "jekyll-feed"
+gem "jekyll-sitemap"
+gem "jekyll-paginate"
+gem "jekyll-gist"
 gem "tzinfo"
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw]
