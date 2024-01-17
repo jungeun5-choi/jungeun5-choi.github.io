@@ -3,7 +3,6 @@ layout: single
 title: "jekyll 블로그, 라이브 서버를 통해 변경 사항 확인하기"
 categories: [blog]
 tag: [jekyll]
-author_profile: true
 ---
 *(windows 기준)*
 
