@@ -7,7 +7,11 @@ tag: [jekyll]
 *(windows 기준)*
 
 ### 1. Ruby 설치
-[RubyInstallers](https://rubyinstaller.org/downloads/) <br>
+{% include link.html
+    url="https://rubyinstaller.org/downloads/"
+    title="RubyInstallers"
+    description="RubyInstallers for Windows"
+%}
 
 > 1. 권장 설치 버전은 버전 앞에 `=>`가 붙어있다고 한다.<br>
 > 2. `WITH DEVKIT`으로 설치해야한다.

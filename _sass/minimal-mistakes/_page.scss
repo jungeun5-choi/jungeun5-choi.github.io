@@ -548,7 +548,7 @@ body {
 .page__related-title {
   margin-bottom: 10px;
   font-size: $type-size-6;
-  text-transform: uppercase;
+  // text-transform: uppercase;
 }
 
 /*
@@ -575,4 +575,46 @@ body {
       padding-right: 0;
     }
   }
+}
+
+/*
+  url embed test
+  ========================================================================== */
+
+.link-preview {
+  border: 2px dotted $xing-color;
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+  margin: 20px 10px 20px 10px;
+  display: flex;
+  text-decoration: none;
+  color: inherit;
+  background-color: $dark-gray;
+  transition: background-color 0.75s ease;
+}
+.link-preview:hover {  
+  background-color: whitesmoke;
+  transition: background-color 0.75s ease;
+}
+
+.link-preview .link-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.link-preview .link-title {
+  font-size: $type-size-5-1;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.link-preview .link-description {
+  font-size: $type-size-6;
+  color: $light-gray;
+}
+
+.link-preview .link-url {
+  font-size: $type-size-6;
+  color: $gray;
 }
