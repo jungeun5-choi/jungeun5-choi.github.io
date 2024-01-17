@@ -1,6 +1,6 @@
 ---
 layout: single
-title: "첫 포스팅"
+title: "마크다운 테스트"
 categories: [blog]
 tag: [jekyll]
 ---
