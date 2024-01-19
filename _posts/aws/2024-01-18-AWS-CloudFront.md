@@ -57,9 +57,9 @@ tag: [aws, saa, cloudfront, region]
 
 ![cloudfront-action-sequence]({{site.url}}/images/2024-01-18-aws-cloudfront/cloudfront-action-sequence.png){: width="60%" height="60%"}
 
-1. 사용자가 애플리케이션에 액세스 하고, 하나 이상의 객체에 대한 요청을 보낸다.
-2. DNS는 사용자에게 적합한 CloudFront POPs(Edge Location)[^3]으로 라우팅한다.[^4]
-3. CloudFront는 캐시에 요청된 객체가 있는지 확인한다.
+1. **사용자가** 애플리케이션에 액세스 하고, 하나 이상의 객체에 대한 **요청을 보낸다**.
+2. **DNS는** 사용자에게 적합한 CloudFront POPs(Edge Location)[^3]으로 라우팅한다.[^4]
+3. **CloudFront는** 캐시에 요청된 객체가 있는지 확인한다.
     1. 객체가 캐시에 *있으면*, 이것을 사용자에게 반환한다.
     2. 객체가 캐시에 *없으면*, 일반적으로 가장 가까운 Region Edge Cache(REC)에 캐시가 있는지 요청한다.
     3. REC에도 없으면 CloudFront는 Origin server<span style='color:gray'>(ex. S3 버킷 또는 HTTP 서버)</span>로 요청을 전달한다.<br>
