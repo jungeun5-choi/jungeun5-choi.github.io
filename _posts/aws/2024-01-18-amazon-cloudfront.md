@@ -1,6 +1,6 @@
 ---
 layout: single
-title: "AWS CloudFront"
+title: "Amazon CloudFront"
 categories: [AWS]
 tag: [aws, saa, cloudfront, region]
 ---

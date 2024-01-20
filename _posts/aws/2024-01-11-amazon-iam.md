@@ -1,6 +1,6 @@
 ---
 layout: single
-title: "AWS IAM"
+title: "Amazon IAM"
 categories: [AWS]
 tag: [aws, saa, iam, policy, json]
 ---
