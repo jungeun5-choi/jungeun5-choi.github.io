@@ -1,8 +1,8 @@
 ---
 layout: single
 title: "동시성 제어; 비관적 락을 통해 요청에 대한 데이터 정확성 확보"
-categories: [MySQL]
-tag: [db, concurrency control, pessimistic lock]
+categories: [Database]
+tag: [mysql, jpa, concurrency control, pessimistic lock]
 ---
 
 <div class="notice">
