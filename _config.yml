@@ -296,6 +296,6 @@ defaults:
       toc_label: "목차"
       toc_icon: "fas fa-seedling"
       sidebar:
-          nav: "counts"
+          nav: "views"
 
 date_format: "%Y-%m-%d"
