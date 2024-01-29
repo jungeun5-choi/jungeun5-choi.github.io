@@ -57,7 +57,7 @@ Groovy Version: 4.0.14 JVM: 17.0.7 Vendor: Eclipse Adoptium OS: Windows 10
         <li> <b>Build:</b> Gradle </li>
     </ul>
 </div>
-JDK는 nGrinder에 맞추어서 11로 설정해두었다. (혹시 이것 때문에 뻑나면 안되니깐….)
+JDK는 nGrinder에 맞추어서 11로 설정해두었다. (혹시 이것 때문에 괜히 오류가 나면 안되니깐….)
 
 ###### build.gradle
 다른 의존성들은 오히려 오류를 불러올 수 있다는 글을 발견해서 전부 지우고 이 둘만 추가해주었다.
@@ -85,14 +85,14 @@ dependencies {
 
 
 ## 😵 환경변수 설정
-### (IntelliJ) local host name 환경변수 설정
+### IntelliJ에서 local host name 환경변수 설정
 
 내 ip 주소라는 민감한 정보를… github에 바로 올릴 순 없으니 환경변수로 설정하려고 한다. `NGRINDER_HOSTNAME`이라는 이름으로 환경변수를 설정해주었다. 환경 설정 시 등록한 IP 주소는 **window host ip(IPv4 주소)**이다.
 
 - Run Configuration 혹은 Edit Configuration → Environment variables
 ![환경변수-intellij]({{site.url}}/images/2023-08-25-groovy-project/환경변수-intellij.png){: width="80%" height="80%"}
 
-##### src/test/groovy/GetItem.groovy
+###### src/test/groovy/GetItem.groovy
 ```groovy
 @RunWith(GrinderRunner)
 class GetItem {
@@ -106,13 +106,17 @@ class GetItem {
 
     @Test
     public void test() {
-    HTTPResponse response = request.GET("http://**${NGRINDER_HOSTNAME}**:1010/tour-ranger/items/1")
+    HTTPResponse response = request.GET("http://${NGRINDER_HOSTNAME}:1010/tour-ranger/items/1")
         // ...
     }
 }
 ```
+참고로, hostname 뒤의 포트 번호는 내가 포트포워딩 해준 포트이다.
 
-#### RuntimeException: Please add -javaagent:{file dir} in ‘Run As JUnit’ vm argument
+<br>
+
+### 환경변수 설정 후, 테스트 스크립트 실행 시 발생하는 오류
+#### 1. RuntimeException: Please add -javaagent:{file dir} in ‘Run As JUnit’ vm argument
 
 스크립트 작성 후, 실행하면 이런 오류가 뜨는데,
 ```
@@ -120,8 +124,9 @@ java.lang.RuntimeException: Please add
 -javaagent:C:\Users\MY%20PC\.gradle\caches\modules-2\files-2.1\net.sf.grinder\grinder-dcr-agent\3.9.1\37607dc5d7192b652e5dec8394a0334b4d3a63d2\grinder-dcr-agent-3.9.1.jar
 in 'Run As JUnit' vm argument.
 ```
+Edit Configuration > VM options에 `-javaagent:${파일경로}` 부분을 입력해주면 된다.
 
-#### Error opening zip file or JAR manifest missing : {file dir}
+#### 2. Error opening zip file or JAR manifest missing : {file dir}
 간혹 위의 오류를 해결해도 아래의 오류가 뜨는 경우가 있다.
 ```
 Error occurred during initialization of VM
@@ -144,7 +149,7 @@ WSL에서 스크립트를 실행시켜보거나, 환경변수를 조작해보는
 이러면 경로가 `E:\grinder-dcr-agent-3.9.1.jar`로 단순해지고, 권한문제에도 걸리지 않는다.
 
 
-### (Ubuntu) local host name 환경변수 설정
+### Ubuntu에서 local host name 환경변수 설정
 나의 경우, nGrinder는 ubuntu 환경에서 실행되기 때문에 ubuntu에 환경변수를 설정해줘야한다. (groovy 스크립트도 ubuntu 상에서 실행됨)
 
 #### 1. 단발적인 환경변수 설정
