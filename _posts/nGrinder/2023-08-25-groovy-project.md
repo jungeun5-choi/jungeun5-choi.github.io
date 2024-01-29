@@ -76,9 +76,114 @@ dependencies {
 2. New > Groovy Script 선택 (GroovyDSL Script 아님)
 3. 생성 후 테스트 스크립트 작성
 
-### (테스트) 로컬 서버 접속 및 스크립트 확인용
+#### (테스트) 로컬 서버 접속 및 스크립트 확인
 상품 정보를 조회하는 API를 테스트 삼아서 진행해보긴 했다 (돌아가는지만 확인)
-    
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8ad30eb7-8510-4c7b-963a-6ccb51e8f0bf/Untitled.png)
-    
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/0e92e777-c2b9-4870-bfa3-8f43b5e4b4af/Untitled.png)
+
+![로컬서버접속및스크립트확인-1]({{site.url}}/images/2023-08-25-groovy-project/로컬서버접속및스크립트확인-1.png){: width="80%" height="80%"}
+
+![로컬서버접속및스크립트확인-2]({{site.url}}/images/2023-08-25-groovy-project/로컬서버접속및스크립트확인-2.png){: width="80%" height="80%"}
+
+
+## 😵 환경변수 설정
+### (IntelliJ) local host name 환경변수 설정
+
+내 ip 주소라는 민감한 정보를… github에 바로 올릴 순 없으니 환경변수로 설정하려고 한다. `NGRINDER_HOSTNAME`이라는 이름으로 환경변수를 설정해주었다. 환경 설정 시 등록한 IP 주소는 **window host ip(IPv4 주소)**이다.
+
+- Run Configuration 혹은 Edit Configuration → Environment variables
+![환경변수-intellij]({{site.url}}/images/2023-08-25-groovy-project/환경변수-intellij.png){: width="80%" height="80%"}
+
+##### src/test/groovy/GetItem.groovy
+```groovy
+@RunWith(GrinderRunner)
+class GetItem {
+    /* 생략 */
+
+    public static HOSTNAME = System.getenv("NGRINDER_HOSTNAME");
+
+    /* @BeforeProcess */
+    /* @BeforeThread */
+    /* @Before */
+
+    @Test
+    public void test() {
+    HTTPResponse response = request.GET("http://**${NGRINDER_HOSTNAME}**:1010/tour-ranger/items/1")
+        // ...
+    }
+}
+```
+
+#### RuntimeException: Please add -javaagent:{file dir} in ‘Run As JUnit’ vm argument
+
+스크립트 작성 후, 실행하면 이런 오류가 뜨는데,
+```
+java.lang.RuntimeException: Please add 
+-javaagent:C:\Users\MY%20PC\.gradle\caches\modules-2\files-2.1\net.sf.grinder\grinder-dcr-agent\3.9.1\37607dc5d7192b652e5dec8394a0334b4d3a63d2\grinder-dcr-agent-3.9.1.jar
+in 'Run As JUnit' vm argument.
+```
+
+#### Error opening zip file or JAR manifest missing : {file dir}
+간혹 위의 오류를 해결해도 아래의 오류가 뜨는 경우가 있다.
+```
+Error occurred during initialization of VM
+agent library failed to init: instrument
+Error opening zip file or JAR manifest missing : C:\Users\MY%20PC\.gradle\caches\modules-2\files-2.1\net.sf.grinder\grinder-dcr-agent\3.9.1\37607dc5d7192b652e5dec8394a0334b4d3a63d2\grinder-dcr-agent-3.9.1.jar
+
+Process finished with exit code 1
+```
+
+세 가지의 가능성이 있는데, 나의 경우는 **2번**이 문제였다.
+
+1. 해당 파일에 접근 권한 문제
+2. **파일 경로(이름) 문제 (특수문자나 공백 등이 포함된 경우) ⬅️**
+3. 파일이 존재하지 않는 경우
+
+WSL에서 스크립트를 실행시켜보거나, 환경변수를 조작해보는 등, 온갖 해결방법은 다 해보았는데… `grinder-dcr-agent-3.9.1.jar` 파일을 E 드라이브에 복사하는 것으로 해결되었다.
+
+![grinder-dcr-agent-391-jar]({{site.url}}/images/2023-08-25-groovy-project/grinder-dcr-agent-391-jar.png){: width="80%" height="80%"}
+
+이러면 경로가 `E:\grinder-dcr-agent-3.9.1.jar`로 단순해지고, 권한문제에도 걸리지 않는다.
+
+
+### (Ubuntu) local host name 환경변수 설정
+나의 경우, nGrinder는 ubuntu 환경에서 실행되기 때문에 ubuntu에 환경변수를 설정해줘야한다. (groovy 스크립트도 ubuntu 상에서 실행됨)
+
+#### 1. 단발적인 환경변수 설정
+
+ngrinder 실행 직전에 한 번씩 해주면 된다. 단, 우분투 창이 꺼지면 초기화되기 때문에 매번 해줘야한다.
+
+```shell
+$ export NGRINDER_HOSTNAME=${window-hostname-ip}
+```
+
+#### 2. 영구적인 환경변수 설정
+Ubuntu의 기본값인 Bash 셸의 경우 프로필 파일은 일반적으로 `~/.bashrc`이다. `~/.bashrc` 파일에 내보내기 명령을 추가한 다음, `source` 명령어를 사용하면 다시 로드되어 변경 사항이 현재 세션에 적용된다...고 한다.
+
+```shell
+$ echo 'export NGRINDER_HOSTNAME=${window-hostname-ip}' >> ~/.bashrc
+$ source ~/.bashrc
+```
+
+#### 3. 환경변수가 설정되었는지 확인하는 방법
+```shell
+$ echo $NGRINDER_HOSTNAME
+
+# response
+${window-hostname-ip}
+```
+
+## 🖇️ GitHub-nGrinder 연결
+### .gitconfig.yml
+nGrinder GUI는 github repository에 접근할 수 있는데, `.gitconfig.yml` 파일이 그 이어주는 역할을 한다. (참고: [공식문서](https://github.com/naver/ngrinder/wiki/GitHub-Script-Storage))
+
+##### 작성 방법
+```
+name: Tour-Ranger-Test-Runner                   # nGrinder에서 표시할 이름
+owner: Tour-Ranger                              # repository 소유자 github 이름
+repo: Tour-Ranger-Test-Runner                   # github repository 이름
+access-token: ${github-personal-access-token}   # 아래 액세스 토큰 생성 참고
+branch: feature/tour-ranger                     # 특정 branch에만 올라간 경우
+#script-root: tour-ranger-test-runner           # 폴더가 나뉘어있을 경우 경로를 알려준다
+```
+
+단, Repository 공개 설정이 Public일 때만 스크립트를 찾을 수 있다.
+![gitconfig-yml]({{site.url}}/images/2023-08-25-groovy-project/gitconfig-yml.png){: width="80%" height="80%"}
