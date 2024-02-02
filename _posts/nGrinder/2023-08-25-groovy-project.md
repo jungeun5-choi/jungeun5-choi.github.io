@@ -85,7 +85,7 @@ dependencies {
 
 
 ## 😵 환경변수 설정
-### (IntelliJ) local host name 환경변수 설정
+### IntelliJ에서: local hostname 환경변수 설정
 
 내 ip 주소라는 민감한 정보를… github에 바로 올릴 순 없으니 환경변수로 설정하려고 한다. `NGRINDER_HOSTNAME`이라는 이름으로 환경변수를 설정해주었다. 환경 설정 시 등록한 IP 주소는 **window host ip(IPv4 주소)**이다.
 
@@ -121,7 +121,7 @@ java.lang.RuntimeException: Please add
 in 'Run As JUnit' vm argument.
 ```
 
-#### Error opening zip file or JAR manifest missing : {file dir}
+#### Error opening zip file or JAR manifest missing : ${file dir}
 간혹 위의 오류를 해결해도 아래의 오류가 뜨는 경우가 있다.
 ```
 Error occurred during initialization of VM
@@ -144,7 +144,7 @@ WSL에서 스크립트를 실행시켜보거나, 환경변수를 조작해보는
 이러면 경로가 `E:\grinder-dcr-agent-3.9.1.jar`로 단순해지고, 권한문제에도 걸리지 않는다.
 
 
-### (Ubuntu) local host name 환경변수 설정
+### Ubuntu에서:local hostname 환경변수 설정
 나의 경우, nGrinder는 ubuntu 환경에서 실행되기 때문에 ubuntu에 환경변수를 설정해줘야한다. (groovy 스크립트도 ubuntu 상에서 실행됨)
 
 #### 1. 단발적인 환경변수 설정
