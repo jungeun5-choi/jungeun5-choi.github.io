@@ -75,4 +75,62 @@ $ cd ngrinder-agent
 파일 경로에서도 진행하면서 다운받은 파일들을 확인해볼 수 있다.
 ![complete-download-files]({{site.url}}/images/2023-08-22-install-nGrinder-with-ubuntu/complete-download-files.png){: width="80%" height="80%"}
 
-## localhost 접속 문제 해결
+<br>
+
+## 🦀 localhost 접속 문제 해결
+### 1. 발생한 문제
+테스트용 groovy 스크립트에서 localhost를 접속하려고 하면 아래와 같은 Connection Error가 발생.
+```
+2023-08-23 02:49:52,314 ERROR Cannot invoke method GET() on null object
+java.lang.NullPointerException: Cannot invoke method GET() on null object
+	at TestRunner.test(createProduct2.groovy:40)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at net.grinder.scriptengine.groovy.junit.GrinderRunner.run(GrinderRunner.java:164)
+	at net.grinder.scriptengine.groovy.GroovyScriptEngine$GroovyWorkerRunnable.run(GroovyScriptEngine.java:147)
+	at net.grinder.engine.process.GrinderThread.run(GrinderThread.java:118)
+```
+
+### 2. 해결 방안
+1. portproxy 추가
+2. 접근 url을 local hostname → window hostname으로 변경
+3. 테스트 실행
+
+#### portproxy 추가
+{% include link.html
+    url="https://learn.microsoft.com/ko-kr/windows/wsl/networking#accessing-a-wsl-2-distribution-from-your-local-area-network-lan"
+    title="LAN(Local Area Network)에서 WSL 2 배포에 액세스"
+    description="WSL을 사용하여 네트워크 애플리케이션에 액세스"
+%}
+
+아래의 명령어를 cmd 혹은 powershell에서 <u>관리자 모드</u>로 실행시킨다.
+```shell
+> netsh interface portproxy add v4tov4 listenport=<yourPortToForward> listenaddress=0.0.0.0 connectport=<yourPortToConnectToInWSL> connectaddress=(wsl hostname -I)
+
+# 예시
+> netsh interface portproxy add v4tov4 listenport=4000 listenaddress=0.0.0.0 connectport=8080 connectaddress=172.xxx.x.x
+```
+`portproxy`가 추가되었는지는 아래의 명령어를 통해 확인이 가능하다.
+```shell
+> netsh interface portproxy show all
+```
+![wsl-hostname]({{site.url}}/images/2023-08-22-install-nGrinder-with-ubuntu/complete-download-files.png){: width="70%" height="70%"}
+
+! 테스트에 사용할 nGrinder의 port 번호를 `1010`으로 설정할 것이 아니라면, `8080`만 추가하는게 옳다. 중복으로 지정해두면 오히려 충돌이 일어날 수 있다. -- 내 프로젝트에서는 `1010`을 프로젝트 로컬 포트로 지정해주었다.
+
+
+#### 접근 url을 local hostname → window hostname으로 변경
+nGrinder 테스트 코드에서 접근 주소 부분을
+```groovy
+@Test
+public void test() {
+    HTTPResponse response = request.GET("http://127.0.0.1:1010/products", params)
+```
+```groovy
+@Test
+public void test() {
+    HTTPResponse response = request.GET("http://${window-hostname}/products", params)
+```
+
+#### 테스트 실행
