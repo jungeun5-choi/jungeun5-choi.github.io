@@ -135,5 +135,7 @@ public void test() {
 
 #### 테스트 실행
 - 테스트 성공: 무사히 초록불이 들어왔다
+![test-complete]({{site.url}}/images/2023-08-22-install-nGrinder-with-ubuntu/test-complete.png){: width="100%" height="100%"}
 
 - Ubuntu에서도 `window hostname`으로 접근 시, `GET` 요청이 문제없이 실행된 것을 볼 수 있었다.
+![curl-hostname]({{site.url}}/images/2023-08-22-install-nGrinder-with-ubuntu/curl-hostname.png){: width="100%" height="100%"}
