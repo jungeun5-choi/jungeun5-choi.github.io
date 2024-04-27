@@ -23,7 +23,22 @@ published: false
 
 
 ## 부팅 USB 생성
+포맷 타입 FAT32, NTFS 각 한 개씩 생성합니다.
 
+### BIOS 설정에서 부팅 순서 변경
+
+
+## grub 화면 진입
+grub에 진입은 했지만, usb로부터 부팅 정보가 담긴 config 파일을 찾지 못해 bootloader를 실행하지 못하고 있는 상황입니다.
+
+그래서 저희가 config 파일을 찾아주어야 합니다.
+
+### `ls` 명령어 
+이 때 `ls` 명령어를 사용합니다.
+
+### `set` 명령어
+
+### `insmod normal`
 
 
 
@@ -33,7 +48,7 @@ published: false
 ```
 <LG 울트라에 Rocky Linux 9 설치>
 1. 부팅 USB 총 두 개 필요
- 포맷 타입 FAT32, NTFS 각 한 개씩)
+ 포맷 타입 FAT32, NTFS 각 한 개씩
 2. grub 화면으로 넘어가는 거 확인
 3. ls 명령어로 인식된 하드디스크 확인
 4. ls (hd1,msdos1)/ 이런 식으로 하드디스크 내부에 파일이 있는지 확인 (이동 x)
