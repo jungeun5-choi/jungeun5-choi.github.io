@@ -1,8 +1,5 @@
-/*!
- * Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
- * Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
- * Licensed under MIT (https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE)
-*/
+/* Copyright comment */
+@import "minimal-mistakes/copyright";
 
 /* Variables */
 @import "minimal-mistakes/variables";
@@ -40,9 +37,12 @@
 @import "minimal-mistakes/print";
 
 /* google fonts */
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap');
+@import url("https://statics.goorm.io/fonts/GoormSans/v1.0.0/GoormSans.min.css");
+@import url("https://statics.goorm.io/fonts/GoormSansCode/v1.0.0/GoormSansCode.min.css");
 
 /* noonnu */
+/*
 @import url('https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.1/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css');
 @font-face {
     font-family: 'D2Coding';
@@ -56,3 +56,4 @@
     font-weight: 400;
     font-style: normal;
 }
+*/
