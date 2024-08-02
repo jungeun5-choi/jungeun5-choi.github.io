@@ -92,14 +92,14 @@ grub> set root=hd1,msdos1
 - **`insmod`:** 'insert module'의 줄임말로, GRUB 환경에서 모듈을 메모리에 로드하는 명령어.
 - **`normal`:** 'normal'은 미리 정의된 모듈의 이름인데, 이 모듈은 일반적으로 커널 이미지를 로드하고 부팅 프로세스를 진행하는 데 필요한 기능들을 포함함.
 
-즉, `insmod normal` 명령어는 GRUB에게 `normal` 모듈을 메모리에 불러오라는 뜻이다. 
+즉, `insmod normal` 명령어는 GRUB에게 `normal` 모듈을 메모리에 불러오라는 뜻이다. 그러면 `normal` 모듈이 커널 이미지를 메모리에 불러오기 이한 준비 작업을 수행한 뒤, 커널에게 제어권을 넘겨줄 것이다.
 
 ```shell
-gurb> insmod normal
-gurb> normal
+grub> insmod normal
+grub> normal
 ```
 
-여기까지 실행시키면 리눅스가 정상적으로 시작된다. 
+여기까지 실행시키면 리눅스 부팅이 정상적으로 시작된다. 
 
 
 ## 명령어 요약
@@ -121,6 +121,6 @@ grub> set fw_path=(hd1,msdos1)/efi/boot/
 grub> set root=hd1,msdos1
 
 # 3. 설정 후, insmod 명령어 실행
-gurb> insmod normal
-gurb> normal
+grub> insmod normal
+grub> normal
 ```
