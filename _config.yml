@@ -108,11 +108,11 @@ author:
   avatar           : "/assets/images/bio-photo.jpg"
   bio              : "선생님, 인프라가 하고 싶어요...."
   location         : "Seoul, Korea"
-  email            : # "jungeun5.choi@gmail.com"
+  email            : "mailto:jungeun5.choi@gmail.com"
   links:
     - label: "E-mail"
       icon: "fas fa-fw fa-envelope-square"
-      url: "jungeun5.choi@gmail.com"
+      url: "mailto:jungeun5.choi@gmail.com"
     - label: "Website"
       icon: "fas fa-fw fa-link"
       # url: "https://your-website.com"
